@@ -22,6 +22,7 @@ public class Pessoa {
 	@Embedded
 	private Endereco endereco;
 	
+	@NotNull
 	private boolean ativo;
 
 	public Long getCodigo() {
@@ -46,6 +47,14 @@ public class Pessoa {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override
