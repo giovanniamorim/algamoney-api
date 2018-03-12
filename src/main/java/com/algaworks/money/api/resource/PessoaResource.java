@@ -34,6 +34,7 @@ public class PessoaResource {
 	@Autowired
 	private PessoaService pessoaService;
 	
+	
 	@GetMapping
 	public List<Pessoa> listar(){
 		return pessoaService.listarTodas();

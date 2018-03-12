@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.algaworks.money.api.model.enuns.TipoLancamento;
 
@@ -22,24 +25,30 @@ public class Lancamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@NotBlank(message = "A Descrição é obrigatória")
 	private String descricao;
 	
+	@NotNull(message = "A data de vendimento é obrigatória")
 	@Column(name="data_vencimento")
 	private LocalDate dataVencimento;
 	
+	@NotNull(message = "A data de pagamento é obrigatória")
 	@Column(name="data_pagamento")
 	private LocalDate dataPagamento;
 	
+	@NotNull(message = "O valor é obrigatório")
 	private BigDecimal valor;
 	
 	private String observacao;
 	
 	@Column(name="tipo")
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "O tipo de pagamento é obrigaório")
 	private TipoLancamento tipoLancamento;
 	
 	@ManyToOne
 	@JoinColumn(name="codigo_categoria")
+	@NotNull(message = "A categoria é obrigatória")
 	private Categoria categoria;
 	
 	@ManyToOne
