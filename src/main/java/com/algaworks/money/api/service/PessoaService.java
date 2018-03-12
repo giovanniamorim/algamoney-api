@@ -1,5 +1,7 @@
 package com.algaworks.money.api.service;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,6 +15,23 @@ public class PessoaService {
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	
+	public List<Pessoa> listarTodas(){
+		return pessoaRepository.findAll();
+	}
+	
+	public Pessoa salvar(Pessoa pessoa) {
+		return pessoaRepository.save(pessoa);
+	}
+	
+	public Pessoa buscaPeloCodigo(Long codigo) {
+		return pessoaRepository.findOne(codigo);
+	}
+	
+	public void delete(Long codigo) {
+		pessoaRepository.delete(codigo);
+		
+	}
 	
 	public Pessoa atualizar(Long codigo, Pessoa pessoa) {
 		Pessoa pessoaSalva = buscarPessoaPeloCodigo(codigo);

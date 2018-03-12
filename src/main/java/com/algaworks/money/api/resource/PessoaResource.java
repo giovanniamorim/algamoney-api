@@ -21,15 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.money.api.event.RecursoCriadoEvent;
 import com.algaworks.money.api.model.Pessoa;
-import com.algaworks.money.api.repository.PessoaRepository;
 import com.algaworks.money.api.service.PessoaService;
 
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaResource {
 	
-	@Autowired
-	private PessoaRepository pessoaRepository;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -39,12 +36,12 @@ public class PessoaResource {
 	
 	@GetMapping
 	public List<Pessoa> listar(){
-		return pessoaRepository.findAll();
+		return pessoaService.listarTodas();
 	}
 	
 	@PostMapping
 	public ResponseEntity<Pessoa> criar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response){
-		Pessoa pessoaSalva = pessoaRepository.save(pessoa);
+		Pessoa pessoaSalva = pessoaService.salvar(pessoa);
 		
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo()));
 		
@@ -53,14 +50,14 @@ public class PessoaResource {
 	
 	@GetMapping("/{codigo}")
 	public ResponseEntity<?> buscarPeloCodigo(@PathVariable Long codigo){
-		Pessoa pessoa = pessoaRepository.findOne(codigo);
+		Pessoa pessoa = pessoaService.buscaPeloCodigo(codigo);
 		return pessoa != null ? ResponseEntity.ok(pessoa) : ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		pessoaRepository.delete(codigo);
+		pessoaService.delete(codigo);
 	}
 	
 	
@@ -77,16 +74,3 @@ public class PessoaResource {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
