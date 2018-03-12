@@ -2,6 +2,7 @@ package com.algaworks.money.api.service;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -35,4 +36,12 @@ public class LancamentoService {
 	public Lancamento salvar(Lancamento lancamento) {
 		return lancamentoRepository.save(lancamento);
 	}
+
+	public Lancamento atualizar(Long codigo, Lancamento lancamento) {
+		Lancamento lancamentoSalvo = buscarPeloCodigo(codigo);
+		BeanUtils.copyProperties(lancamento, lancamentoSalvo, "codigo");
+		return lancamentoRepository.save(lancamentoSalvo);
+	}
+	
+	
 }
