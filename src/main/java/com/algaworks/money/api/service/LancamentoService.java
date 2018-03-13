@@ -12,6 +12,7 @@ import com.algaworks.money.api.model.Lancamento;
 import com.algaworks.money.api.model.Pessoa;
 import com.algaworks.money.api.repository.LancamentoRepository;
 import com.algaworks.money.api.repository.PessoaRepository;
+import com.algaworks.money.api.repository.filter.LancamentoFilter;
 
 @Service
 public class LancamentoService {
@@ -23,7 +24,7 @@ public class LancamentoService {
 	private PessoaRepository pessoaRepository;
 	
 
-	public List<Lancamento> listarTodos(){
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter ){
 		return lancamentoRepository.findAll();
 	}
 	
@@ -54,6 +55,10 @@ public class LancamentoService {
 		return lancamentoRepository.save(lancamentoSalvo);
 	}
 	
+	
+	public List<Lancamento> filtrar(LancamentoFilter lancamentoFilter) {
+		return lancamentoRepository.filtrar(lancamentoFilter);
+	}
 	
 	
 	

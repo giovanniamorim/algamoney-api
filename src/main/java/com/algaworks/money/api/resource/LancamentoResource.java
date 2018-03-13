@@ -27,6 +27,7 @@ import com.algaworks.money.api.event.RecursoCriadoEvent;
 import com.algaworks.money.api.exception.EntityExceptionHandler.Erro;
 import com.algaworks.money.api.exception.PessoaInexistenteOuInativaException;
 import com.algaworks.money.api.model.Lancamento;
+import com.algaworks.money.api.repository.filter.LancamentoFilter;
 import com.algaworks.money.api.service.LancamentoService;
 
 @RestController
@@ -43,8 +44,8 @@ public class LancamentoResource {
 	private MessageSource messageSource;
 	
 	@GetMapping
-	public List<Lancamento> listar(){
-		return lancamentoService.listarTodos();
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter){
+		return lancamentoService.filtrar(lancamentoFilter);
 		
 	}
 	
