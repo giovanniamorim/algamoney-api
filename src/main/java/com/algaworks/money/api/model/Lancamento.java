@@ -43,8 +43,8 @@ public class Lancamento {
 	
 	@Column(name="tipo")
 	@Enumerated(EnumType.STRING)
-	@NotNull(message = "O tipo de pagamento é obrigaório")
-	private TipoLancamento tipoLancamento;
+	@NotNull(message = "O tipo de pagamento é obrigatório")
+	private TipoLancamento tipo;
 	
 	@ManyToOne
 	@JoinColumn(name="codigo_categoria")
@@ -103,12 +103,13 @@ public class Lancamento {
 		this.observacao = observacao;
 	}
 
-	public TipoLancamento getTipoLancamento() {
-		return tipoLancamento;
+
+	public TipoLancamento getTipo() {
+		return tipo;
 	}
 
-	public void setTipoLancamento(TipoLancamento tipoLancamento) {
-		this.tipoLancamento = tipoLancamento;
+	public void setTipo(TipoLancamento tipo) {
+		this.tipo = tipo;
 	}
 
 	public Categoria getCategoria() {

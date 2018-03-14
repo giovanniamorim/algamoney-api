@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.algaworks.money.api.dto.LancamentoDTO;
 import com.algaworks.money.api.exception.PessoaInexistenteOuInativaException;
 import com.algaworks.money.api.model.Lancamento;
 import com.algaworks.money.api.model.Pessoa;
@@ -60,6 +61,10 @@ public class LancamentoService {
 	
 	public Page<Lancamento> filtrar(LancamentoFilter lancamentoFilter, Pageable pageable) {
 		return lancamentoRepository.filtrar(lancamentoFilter, pageable);
+	}
+
+	public Page<LancamentoDTO> resumir(LancamentoFilter lancamentoFilter, Pageable pageable) {
+		return lancamentoRepository.resumir(lancamentoFilter, pageable);
 	}
 
 }

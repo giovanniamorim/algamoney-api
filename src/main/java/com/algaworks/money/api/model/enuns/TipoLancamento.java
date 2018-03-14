@@ -2,6 +2,18 @@ package com.algaworks.money.api.model.enuns;
 
 public enum TipoLancamento {
 	
-	RECEITA,
-	DESPESA
+	RECEITA("Receita"),
+	DESPESA("Depesa");
+	
+	private String descricao;
+
+	private TipoLancamento(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	
 }
