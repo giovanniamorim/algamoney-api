@@ -11,16 +11,20 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import com.algaworks.money.api.config.AlgamoneyApiProperty;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter{
 	
-	private String originPermitida = "http://localhost:8000"; // TODO: Na produção configurar para diferentes ambientes
-
+	@Autowired
+	private AlgamoneyApiProperty algaMoneyApiProperty; 
+	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
@@ -28,10 +32,10 @@ public class CorsFilter implements Filter{
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
-		response.setHeader("Access-Control-Allow-Origin", originPermitida);
+		response.setHeader("Access-Control-Allow-Origin", algaMoneyApiProperty.getOriginPermitida());
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		if("OPTIONS".equals(request.getMethod()) && originPermitida.equals(request.getHeader("Origin"))) {
+		if("OPTIONS".equals(request.getMethod()) && algaMoneyApiProperty.getOriginPermitida().equals(request.getHeader("Origin"))) {
 			response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
 			response.setHeader("Access-Control-Allow-Methods", "Authorization, ContentType, Accept");
 			response.setHeader("Access-Control-Max-Age", "3600");
@@ -46,13 +50,11 @@ public class CorsFilter implements Filter{
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 
